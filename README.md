@@ -31,7 +31,7 @@ Then, users can reserve parameters for `hello` method like this:
 And users can call `hello` method without parameters like this:
 
 ```vim
-:echo denops#request("hello")
+:echo denops#request("foo", "hello")
 ```
 
 It will show `Hello, Alice! You are 20 years old.`.
@@ -39,7 +39,7 @@ It will show `Hello, Alice! You are 20 years old.`.
 Of course, users can call `hello` method with parameters like this:
 
 ```vim
-:echo denops#request("hello", {"name": "Bob", "age": 18})
+:echo denops#request("foo", "hello", {"name": "Bob", "age": 18})
 ```
 
 It will show `Hello, Bob! You are 18 years old.`.

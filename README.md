@@ -18,6 +18,13 @@ export function main(denops: Denops) {
         });
         return `Hello, ${name}! You are ${age} years old.`;
       },
+
+      goodbye(uParams: unknown) {
+        const {name} = uParams as is.ObjectOf({
+            name: is.String,
+        });
+        return `Goodbye, ${name}!`;
+      },
     });
 }
 ```
@@ -43,6 +50,39 @@ Of course, users can call `hello` method with parameters like this:
 ```
 
 It will show `Hello, Bob! You are 18 years old.`.
+
+Users can also set one parameter for a method like this:
+
+```vim
+:call denops#request("foo", "params:set-for-method", ["hello", {"name": "Charlie"}])
+```
+
+or
+
+```vim
+:call denops#request("foo", "params:set-one", ["hello", "age", 16])
+```
+
+And also can set multiple parameters for multiple methods like this:
+
+```vim
+:call denops#request("foo", "params:set-all", [{"hello": {"name": "David"}}, {"goodbye": {"name": "Eve"}}])
+```
+
+If users want to set a default value for a parameter, they can specify `_` as a function name:
+
+```vim
+:call denops#request("foo", "params:set-for-method", ["_", {"name": "Frank"}])
+```
+
+Then, `hello` and `goodbye` methods will use `name` parameter as `Frank` by default.
+Of cource, users can override the default value like this:
+
+```vim
+:call denops#request("foo", "params:set-for-method", ["hello", {"name": "Grace"}])
+```
+
+Then, `hello` method will use `name` parameter as `Grace`.
 
 # License
 

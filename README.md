@@ -69,7 +69,7 @@ And also can set multiple parameters for multiple methods like this:
 :call denops#request("foo", "params:set-all", [{"hello": {"name": "David"}}, {"goodbye": {"name": "Eve"}}])
 ```
 
-If users want to set a default value for a parameter, they can specify `_` as a function name:
+If users want to set a default value for a parameter across methods, they can specify `_` as a method name:
 
 ```vim
 :call denops#request("foo", "params:set-for-method", ["_", {"name": "Frank"}])

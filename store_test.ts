@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert@0.224.0";
+import { assertEquals } from "@std/assert";
 import { test } from "https://deno.land/x/denops_test@v1.6.2/mod.ts";
 import { ParamStore } from "./store.ts";
 

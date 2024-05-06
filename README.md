@@ -6,7 +6,7 @@ This library provides `bindDispatcher` function to bind parameters for denops di
 For example, if you want to bind parameters, you can write like this:
 
 ```typescript:denops/foo/main.ts
-import { bindDispatcher } from "jsr:@kyoh86/denops-bind-params@MODULE_VERSION/mod.ts";
+import { bindDispatcher } from "@kyoh86/denops-bind-params";
 import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 
 export function main(denops: Denops) {

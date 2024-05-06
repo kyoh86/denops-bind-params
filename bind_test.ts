@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert";
-import { ensure, is } from "jsr:@core/unknownutil";
+import { assertEquals } from "jsr:@std/assert@0.224.0";
+import { ensure, is } from "jsr:@core/unknownutil@^3";
 import { test } from "https://deno.land/x/denops_test@v1.6.2/mod.ts";
 import { bindDispatcher } from "./bind.ts";
 

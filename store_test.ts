@@ -1,6 +1,6 @@
-import { ParamStore } from "./store.ts";
+import { assertEquals } from "jsr:@std/assert";
 import { test } from "https://deno.land/x/denops_test@v1.6.2/mod.ts";
-import { assertEquals } from "https://deno.land/std@0.223.0/assert/mod.ts";
+import { ParamStore } from "./store.ts";
 
 test({
   mode: "all",

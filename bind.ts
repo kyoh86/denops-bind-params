@@ -1,6 +1,6 @@
+import { ensure, is } from "jsr:@core/unknownutil";
 import { Dispatcher } from "https://deno.land/x/denops_std@v6.4.0/mod.ts";
 import { ParamStore } from "./store.ts";
-import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 
 /**
  * Bind dispatcher to ParamStore.
@@ -14,7 +14,7 @@ import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
  * @example
  * ```typescript
  * import { bindDispatcher } from "jsr:@kyoh86/denops-bind-params@MODULE_VERSION/mod.ts";
- * import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
+ * import { ensure, is } from "jsr:@core/unknownutil";
  *
  * export function main(denops: Denops) {
  *     denops.dispatcher = bindDispatcher({
@@ -113,7 +113,7 @@ export function bindDispatcher(
  * @example
  * ```typescript
  * import { bindMethod, ParamStore } from "jsr:@kyoh86/denops-bind-params@MODULE_VERSION/mod.ts";
- * import { ensure, is } from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
+ * import { ensure, is } from "jsr:@core/unknownutil";
  * export function main(denops: Denops) {
  *   const paramStore = new ParamStore();
  *

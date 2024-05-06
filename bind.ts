@@ -1,5 +1,5 @@
 import { ensure, is } from "jsr:@core/unknownutil";
-import { Dispatcher } from "https://deno.land/x/denops_std@v6.4.0/mod.ts";
+import type { Dispatcher } from "jsr:@denops/core";
 import { ParamStore } from "./store.ts";
 
 /**

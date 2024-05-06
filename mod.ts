@@ -1,2 +1,2 @@
 export * from "./store.ts";
-export * from "./dispatcher.ts";
+export * from "./bind.ts";

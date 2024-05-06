@@ -31,9 +31,9 @@ import { ParamStore } from "./store.ts";
  */
 export function bindDispatcher(
   dispatcher: Dispatcher,
-  paramStore = new ParamStore(),
+  paramStore: ParamStore = new ParamStore(),
   customMethodsPrefix: string = "",
-) {
+): Dispatcher {
   for (const methodName of Object.keys(dispatcher)) {
     dispatcher[methodName] = bindMethod(
       paramStore,
@@ -133,7 +133,7 @@ export function bindMethod(
   paramStore: ParamStore,
   methodName: string,
   method: (...args: unknown[]) => unknown,
-) {
+): (params: unknown) => unknown {
   return (params: unknown) => {
     return method(
       paramStore.getParamsForMethod(

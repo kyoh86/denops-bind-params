@@ -1,9 +1,11 @@
 # denops-bind-params
 
-This is a deno library to reserve and bind parameters for [denops](https://vim-denops.github.io/denops-documentation/) dispatcher.
+This is a deno library to reserve and bind parameters for
+[denops](https://vim-denops.github.io/denops-documentation/) dispatcher.
 
-This library provides `bindDispatcher` function to bind parameters for denops dispatcher.
-For example, if you want to bind parameters, you can write like this:
+This library provides `bindDispatcher` function to bind parameters for denops
+dispatcher. For example, if you want to bind parameters, you can write like
+this:
 
 ```typescript:denops/foo/main.ts
 import { bindDispatcher } from "@kyoh86/denops-bind-params";
@@ -69,14 +71,15 @@ And also can set multiple parameters for multiple methods like this:
 :call denops#request("foo", "params:set-all", [{"hello": {"name": "David"}}, {"goodbye": {"name": "Eve"}}])
 ```
 
-If users want to set a default value for a parameter across methods, they can specify `_` as a method name:
+If users want to set a default value for a parameter across methods, they can
+specify `_` as a method name:
 
 ```vim
 :call denops#request("foo", "params:set-for-method", ["_", {"name": "Frank"}])
 ```
 
-Then, `hello` and `goodbye` methods will use `name` parameter as `Frank` by default.
-Of cource, users can override the default value like this:
+Then, `hello` and `goodbye` methods will use `name` parameter as `Frank` by
+default. Of cource, users can override the default value like this:
 
 ```vim
 :call denops#request("foo", "params:set-for-method", ["hello", {"name": "Grace"}])

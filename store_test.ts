@@ -1,5 +1,5 @@
+import { test } from "@denops/test";
 import { assertEquals } from "@std/assert";
-import { test } from "https://deno.land/x/denops_test@v1.8.0/mod.ts";
 import { ParamStore } from "./store.ts";
 
 test({

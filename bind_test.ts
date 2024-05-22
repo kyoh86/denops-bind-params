@@ -1,6 +1,6 @@
-import { assertEquals } from "@std/assert";
 import { ensure, is } from "@core/unknownutil";
-import { test } from "https://deno.land/x/denops_test@v1.8.0/mod.ts";
+import { test } from "@denops/test";
+import { assertEquals } from "@std/assert";
 import { bindDispatcher } from "./bind.ts";
 
 test({

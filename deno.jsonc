@@ -1,6 +1,6 @@
 {
   "name": "@kyoh86/denops-bind-params",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "exports": {
     ".": "./mod.ts",
     "./keycase": "./keycase.ts"

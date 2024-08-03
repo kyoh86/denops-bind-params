@@ -12,7 +12,7 @@
     "lint": "deno lint ./**/*.ts"
   },
   "imports": {
-    "@core/unknownutil": "jsr:@core/unknownutil@^3.18.0",
+    "@core/unknownutil": "jsr:@core/unknownutil@^4.0.0",
     "@denops/core": "jsr:@denops/core@^7.0.0",
     "@denops/test": "jsr:@denops/test@^3.0.0",
     "@std/assert": "jsr:@std/assert@^1.0.0"

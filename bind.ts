@@ -29,79 +29,101 @@ import { ParamStore } from "./store.ts";
  * }
  * ```
  */
-export function bindDispatcher(
-  dispatcher: Dispatcher,
+export function bindDispatcher<T extends Dispatcher, K extends string>(
+  dispatcher: T,
   paramStore: ParamStore = new ParamStore(),
-  customMethodsPrefix: string = "",
-): Dispatcher {
-  for (const methodName of Object.keys(dispatcher)) {
-    dispatcher[methodName] = bindMethod(
-      paramStore,
-      methodName,
-      dispatcher[methodName],
-    );
+  customMethodsPrefix: K = "" as K,
+):
+  & T
+  & {
+    [N in `${K}params:set-one`]: (
+      uMethod: unknown,
+      uName: unknown,
+      value: unknown,
+    ) => void;
   }
+  & {
+    [N in `${K}params:set-for-method`]: (
+      uMethod: unknown,
+      uParams: unknown,
+    ) => void;
+  }
+  & { [N in `${K}params:set-all`]: (uParamSet: unknown) => void }
+  & { [N in `${K}params:get-for-method`]: (uMethod: unknown) => void }
+  & { [N in `${K}params:get-all`]: () => void }
+  & {
+    [N in `${K}params:clear-one`]: (uMethod: unknown, uName: unknown) => void;
+  }
+  & { [N in `${K}params:clear-for-method`]: (uMethod: unknown) => void }
+  & { [N in `${K}params:clear-all`]: () => void } {
+  // dispatcherのメソッドをbindMethodで変換
+  const transformed = Object.fromEntries(
+    Object.entries(dispatcher).map(([methodName, fn]) => {
+      return [methodName, bindMethod(paramStore, methodName, fn)];
+    }),
+  ) as T;
 
-  dispatcher[`${customMethodsPrefix}params:set-one`] = (
-    uMethod: unknown,
-    uName: unknown,
-    value: unknown,
-  ) => {
-    paramStore.storeParam(
-      ensure(uMethod, is.String),
-      ensure(uName, is.String),
-      value,
-    );
+  return {
+    ...transformed,
+    [`${customMethodsPrefix}params:set-one`]: (
+      uMethod: unknown,
+      uName: unknown,
+      value: unknown,
+    ) => {
+      paramStore.storeParam(
+        ensure(uMethod, is.String),
+        ensure(uName, is.String),
+        value,
+      );
+    },
+
+    [`${customMethodsPrefix}params:set-for-method`]: (
+      uMethod: unknown,
+      uParams: unknown,
+    ) => {
+      paramStore.storeParamsForMethod(
+        ensure(uMethod, is.String),
+        ensure(uParams, is.RecordOf(is.Unknown, is.String)),
+      );
+    },
+
+    [`${customMethodsPrefix}params:set-all`]: (
+      uParamSet: unknown,
+    ) => {
+      const paramSet = ensure(uParamSet, is.RecordOf(is.Record, is.String));
+      paramStore.storeParams(paramSet);
+    },
+
+    [`${customMethodsPrefix}params:get-for-method`]: (
+      uMethod: unknown,
+    ) => {
+      return paramStore.getParamsForMethod(ensure(uMethod, is.String));
+    },
+
+    [`${customMethodsPrefix}params:get-all`]: () => {
+      return paramStore.getAllParams();
+    },
+
+    [`${customMethodsPrefix}params:clear-one`]: (
+      uMethod: unknown,
+      uName: unknown,
+    ) => {
+      paramStore.clearParam(
+        ensure(uMethod, is.String),
+        ensure(uName, is.String),
+      );
+    },
+
+    [`${customMethodsPrefix}params:clear-for-method`]: (
+      uMethod: unknown,
+    ) => {
+      paramStore.clearParamsForMethod(ensure(uMethod, is.String));
+    },
+
+    [`${customMethodsPrefix}params:clear-all`]: () => {
+      paramStore.clearAllParams();
+    },
   };
-
-  dispatcher[`${customMethodsPrefix}params:set-for-method`] = (
-    uMethod: unknown,
-    uParams: unknown,
-  ) => {
-    paramStore.storeParamsForMethod(
-      ensure(uMethod, is.String),
-      ensure(uParams, is.RecordOf(is.Unknown, is.String)),
-    );
-  };
-
-  dispatcher[`${customMethodsPrefix}params:set-all`] = (
-    uParamSet: unknown,
-  ) => {
-    const paramSet = ensure(uParamSet, is.RecordOf(is.Record, is.String));
-    paramStore.storeParams(paramSet);
-  };
-
-  dispatcher[`${customMethodsPrefix}params:get-for-method`] = (
-    uMethod: unknown,
-  ) => {
-    return paramStore.getParamsForMethod(ensure(uMethod, is.String));
-  };
-
-  dispatcher[`${customMethodsPrefix}params:get-all`] = () => {
-    return paramStore.getAllParams();
-  };
-
-  dispatcher[`${customMethodsPrefix}params:clear-one`] = (
-    uMethod: unknown,
-    uName: unknown,
-  ) => {
-    paramStore.clearParam(
-      ensure(uMethod, is.String),
-      ensure(uName, is.String),
-    );
-  };
-
-  dispatcher[`${customMethodsPrefix}params:clear-for-method`] = (
-    uMethod: unknown,
-  ) => {
-    paramStore.clearParamsForMethod(ensure(uMethod, is.String));
-  };
-
-  dispatcher[`${customMethodsPrefix}params:clear-all`] = () => {
-    paramStore.clearAllParams();
-  };
-
-  return dispatcher;
 }
 
 /** Bind a method to the ParamStore. It will reserve parameters.

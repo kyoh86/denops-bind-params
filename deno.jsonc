@@ -6,9 +6,6 @@
     "./keycase": "./keycase.ts"
   },
   "description": "A deno library to reserve and bind parameters for denops dispatcher",
-  "fmt": { "include": ["*"] },
-  "lint": { "include": ["*"] },
-  "test": { "include": ["*"] },
   "tasks": {
     "update": "deno run --allow-env --allow-read --allow-write --allow-net --allow-run=git,deno jsr:@molt/cli --write ./**/*.ts",
     "fmt": "deno fmt",
